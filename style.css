@@ -1,0 +1,151 @@
+:root {
+    --fundo: #111111;
+    --painel: #1b1b1b;
+    --linha: #333333;
+    --texto: #f2f2f2;
+    --suave: #b5b5b5;
+    --dourado: #d4af37;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, .logo {
+    font-family: "Oswald", Arial, sans-serif;
+    color: var(--dourado);
+}
+
+/* Menu */
+.topo {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 6%;
+    background: var(--fundo);
+    border-bottom: 4px solid transparent;
+    border-image: repeating-linear-gradient(-45deg, #c0392b 0 12px, #f2f2f2 12px 24px, #1f4e9c 24px 36px) 1;
+}
+.logo { font-size: 22px; text-decoration: none; }
+nav a { color: var(--texto); text-decoration: none; margin-left: 22px; }
+nav a:hover { color: var(--dourado); }
+
+/* Banner */
+.hero {
+    text-align: center;
+    padding: 130px 6% 110px;
+    background:
+        linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.92)),
+        url("fotos/barber-2.jpg") center / cover no-repeat,
+        var(--fundo);
+}
+.hero h1 { font-size: clamp(40px, 8vw, 72px); line-height: 1.1; }
+.hero p { font-size: 20px; color: var(--suave); margin: 16px 0 30px; }
+
+.botao {
+    display: inline-block;
+    background: var(--dourado);
+    color: #111;
+    font-weight: bold;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.botao:hover { background: #e6c14f; }
+
+/* Seções */
+.secao { max-width: 1000px; margin: 0 auto; padding: 60px 6%; }
+.secao h2 { font-size: 34px; margin-bottom: 26px; }
+.secao p { color: var(--suave); }
+
+/* Cortes */
+.grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+}
+.card {
+    background: var(--painel);
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.card h3 { font-size: 20px; }
+.card .desc { color: var(--suave); font-size: 15px; flex: 1; }
+.card .preco { color: var(--dourado); font-size: 24px; font-weight: bold; }
+.card .tempo { color: var(--suave); font-size: 14px; }
+.card button { margin-top: 8px; }
+
+/* Formulário */
+form {
+    display: grid;
+    gap: 16px;
+    max-width: 480px;
+}
+label { display: grid; gap: 6px; color: var(--suave); font-size: 15px; }
+input, select {
+    background: var(--painel);
+    color: var(--texto);
+    border: 1px solid var(--linha);
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 16px;
+}
+input:focus, select:focus, .botao:focus-visible, a:focus-visible {
+    outline: 2px solid var(--dourado);
+    outline-offset: 2px;
+}
+#mensagem { min-height: 24px; }
+#mensagem.erro { color: #ff7b72; }
+#mensagem.ok { color: #7ee787; }
+
+footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid var(--linha);
+    color: var(--suave);
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .topo { flex-direction: column; gap: 8px; }
+    nav a { margin: 0 10px; }
+    .hero { padding-top: 70px; }
+}
+
+/* Abas */
+.abas { display: flex; gap: 8px; margin-bottom: 24px; }
+.aba {
+    background: transparent;
+    color: var(--suave);
+    border: 1px solid var(--linha);
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.aba.ativa { background: var(--dourado); color: #111; border-color: var(--dourado); font-weight: bold; }
+.dica { margin-bottom: 18px; }
+.secao a { color: var(--dourado); }
+body {
+    background:
+        linear-gradient(rgba(17, 17, 17, 0.85), rgba(17, 17, 17, 0.85)),
+        url("fotos/imagem-barber.jpg") center / cover fixed no-repeat,
+        #111111;
+}

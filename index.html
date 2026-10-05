@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topo">
+        <a href="#inicio" class="logo">Barbearia duCort</a>
+        <nav>
+            <a href="#cortes">Cortes</a>
+            <a href="#agendamento">Agendar</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <h1>Barbearia duCort</h1>
+            <p>Chegue como cliente, saia como referência...</p>
+            <a href="#agendamento" class="botao">Agendar horário</a>
+        </section>
+
+        <section id="cortes" class="secao">
+            <h2>Cortes e serviços</h2>
+            <div class="abas" role="tablist">
+                <button type="button" class="aba ativa" data-aba="servicos" role="tab">Serviços</button>
+            </div>
+            <div id="painel-servicos">
+                <div id="lista-cortes" class="grade"></div>
+            </div>
+            <div id="painel-estilos" hidden>
+                <p class="dica">Escolha o estilo que você quer. Ele já vai para o formulário.</p>
+                <div id="lista-estilos" class="grade"></div>
+            </div>
+        </section>
+
+        <section id="agendamento" class="secao">
+            <h2>Agende seu horário</h2>
+            <form id="form-agendamento" novalidate>
+                <label>Nome
+                    <input type="text" id="nome" placeholder="Seu nome" required>
+                </label>
+                <label>Telefone (WhatsApp)
+                    <input type="tel" id="telefone" placeholder="(11) 99999-9999" required>
+                </label>
+                <label>Serviço
+                    <select id="servico" required></select>
+                </label>
+                <label>Barbeiro
+                    <select id="barbeiro" required></select>
+                </label>
+                <label>Data
+                    <input type="date" id="data" required>
+                </label>
+                <label>Horário
+                    <select id="horario" required>
+                        <option value="">Escolha a data primeiro</option>
+                    </select>
+                </label>
+                <button type="submit" class="botao">Confirmar agendamento</button>
+                <p id="mensagem" role="status"></p>
+            </form>
+        </section>
+
+        <section id="contato" class="secao">
+            <h2>Contato</h2>
+            <p>Rua daVinci, 157, São Paulo - SP</p>
+            <p>Terça a sábado, das 9h às 19h</p>
+            <p>WhatsApp: <a href="https://wa.me/5511974634648" target="_blank" rel="noopener">(11) 97463-4648</a></p>
+            <p>Instagram: <a href="https://instagram.com/barbeariaducort" target="_blank" rel="noopener">@barbeariaducort</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Barbearia duCort</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
