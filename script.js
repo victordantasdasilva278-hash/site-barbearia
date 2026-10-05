@@ -112,6 +112,7 @@ inpTelefone.addEventListener("input", () => {
 });
 
 // ===== 7. ENVIO DO FORMULÁRIO =====
+
 function mostrar(texto, tipo) {
     msg.textContent = texto;
     msg.className = tipo;
@@ -126,24 +127,91 @@ form.addEventListener("submit", e => {
         servico: selServico.value,
         barbeiro: selBarbeiro.value,
         data: inpData.value,
-        horario: selHorario.value,
+        horario: selHorario.value
     };
 
-    if (!ag.nome || !ag.telefone || !ag.data || !ag.horario) {
-        mostrar("Preencha nome, telefone, data e horário.", "erro");
+    // Validar os campos
+    if (
+        !ag.nome ||
+        !ag.telefone ||
+        !ag.servico ||
+        !ag.barbeiro ||
+        !ag.data ||
+        !ag.horario
+    ) {
+        mostrar("Preencha todos os campos do formulário.", "erro");
         return;
     }
+
     if (ag.telefone.replace(/\D/g, "").length < 10) {
-        mostrar("Digite um telefone com DDD.", "erro");
+        mostrar("Digite um telefone válido com DDD.", "erro");
         return;
     }
+
     if (ag.data < inpData.min) {
         mostrar("Escolha uma data a partir de hoje.", "erro");
         return;
     }
 
+    // Verificar se o horário já está ocupado neste navegador
+    const ocupados = lerAgendamentos();
+
+    const conflito = ocupados.some(a =>
+        a.data === ag.data &&
+        a.horario === ag.horario &&
+        a.barbeiro === ag.barbeiro
+    );
+
+    if (conflito) {
+        mostrar("Esse horário já está ocupado. Escolha outro.", "erro");
+        atualizarHorarios();
+        return;
+    }
+
+    // Salvar o agendamento
     salvarAgendamento(ag);
-    mostrar(`Agendado! ${ag.servico} com ${ag.barbeiro} em ${ag.data.split("-").reverse().join("/")} às ${ag.horario}.`, "ok");
+
+    // Formatar a data para exibição
+    const [ano, mes, dia] = ag.data.split("-");
+    const dataFormatada = `${dia}/${mes}/${ano}`;
+
+    // Mostrar o resumo do agendamento
+    mostrar(
+        `Agendamento registrado!\n` +
+        `Cliente: ${ag.nome}\n` +
+        `Telefone: ${ag.telefone}\n` +
+        `Serviço: ${ag.servico}\n` +
+        `Barbeiro: ${ag.barbeiro}\n` +
+        `Data: ${dataFormatada}\n` +
+        `Horário: ${ag.horario}`,
+        "ok"
+    );
+
+    // Criar mensagem para o WhatsApp da barbearia
+    const mensagemWhatsApp =
+        `Olá! Quero confirmar meu agendamento na Barbearia duCort.\n\n` +
+        `Nome: ${ag.nome}\n` +
+        `Telefone: ${ag.telefone}\n` +
+        `Serviço: ${ag.servico}\n` +
+        `Barbeiro: ${ag.barbeiro}\n` +
+        `Data: ${dataFormatada}\n` +
+        `Horário: ${ag.horario}`;
+
+    const linkWhatsApp = document.createElement("a");
+
+    linkWhatsApp.href =
+        `https://wa.me/5511974634648?text=${encodeURIComponent(mensagemWhatsApp)}`;
+
+    linkWhatsApp.textContent = "Enviar confirmação pelo WhatsApp";
+    linkWhatsApp.className = "botao";
+    linkWhatsApp.target = "_blank";
+    linkWhatsApp.rel = "noopener noreferrer";
+
+    msg.appendChild(document.createElement("br"));
+    msg.appendChild(document.createElement("br"));
+    msg.appendChild(linkWhatsApp);
+
+    // Atualizar a tela
     form.reset();
     atualizarHorarios();
 });
